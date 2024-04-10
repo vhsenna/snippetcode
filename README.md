@@ -1,4 +1,4 @@
-# Snippetcode [IN PROGRESS]
+# Snippetcode
 
 Snippetcode is a web application built with Golang that allows users to easily paste and share snippets of code or text.
 
