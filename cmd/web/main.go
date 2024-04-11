@@ -1,11 +1,15 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 )
 
 func main() {
+	addr := flag.String("addr", "8080", "HTTP network address")
+	flag.Parse()
+
 	r := http.NewServeMux()
 
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
@@ -15,8 +19,8 @@ func main() {
 	r.HandleFunc("/snippet/view", snippetView)
 	r.HandleFunc("/snippet/create", snippetCreate)
 
-	log.Print("Starting server on 8080\n")
-	if err := http.ListenAndServe(":8080", r); err != nil {
+	log.Printf("Starting server on %s\n", *addr)
+	if err := http.ListenAndServe(*addr, r); err != nil {
 		log.Fatal(err)
 	}
 }
