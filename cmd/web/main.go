@@ -23,8 +23,14 @@ func main() {
 	r.HandleFunc("/snippet/view", snippetView)
 	r.HandleFunc("/snippet/create", snippetCreate)
 
+	srv := &http.Server{
+		Addr:     *addr,
+		ErrorLog: errorLog,
+		Handler:  r,
+	}
+
 	infoLog.Printf("Starting server on %s\n", *addr)
-	if err := http.ListenAndServe(*addr, r); err != nil {
+	if err := srv.ListenAndServe(); err != nil {
 		errorLog.Fatal(err)
 	}
 }
