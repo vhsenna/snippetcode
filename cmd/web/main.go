@@ -4,11 +4,15 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
-	addr := flag.String("addr", "8080", "HTTP network address")
+	addr := flag.String("addr", ":8080", "HTTP network address")
 	flag.Parse()
+
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	r := http.NewServeMux()
 
@@ -19,8 +23,8 @@ func main() {
 	r.HandleFunc("/snippet/view", snippetView)
 	r.HandleFunc("/snippet/create", snippetCreate)
 
-	log.Printf("Starting server on %s\n", *addr)
+	infoLog.Printf("Starting server on %s\n", *addr)
 	if err := http.ListenAndServe(*addr, r); err != nil {
-		log.Fatal(err)
+		errorLog.Fatal(err)
 	}
 }
