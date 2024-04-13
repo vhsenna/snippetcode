@@ -14,6 +14,7 @@ type application struct {
 
 func main() {
 	addr := flag.String("addr", ":8080", "HTTP network address")
+
 	flag.Parse()
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -24,19 +25,10 @@ func main() {
 		infoLog:  infoLog,
 	}
 
-	r := http.NewServeMux()
-
-	fileServer := http.FileServer(http.Dir("./ui/static/"))
-	r.Handle("/static/", http.StripPrefix("/static", fileServer))
-
-	r.HandleFunc("/", app.home)
-	r.HandleFunc("/snippet/view", app.snippetView)
-	r.HandleFunc("/snippet/create", app.snippetCreate)
-
 	srv := &http.Server{
 		Addr:     *addr,
 		ErrorLog: errorLog,
-		Handler:  r,
+		Handler:  app.routes(),
 	}
 
 	infoLog.Printf("Starting server on %s\n", *addr)
