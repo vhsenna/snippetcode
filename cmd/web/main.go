@@ -7,12 +7,15 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/vhsenna/snippetcode/internal/models"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	snippets *models.SnippetModel
 }
 
 func openDB(dsn string) (*sql.DB, error) {
@@ -45,6 +48,7 @@ func main() {
 	app := &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
+		snippets: &models.SnippetModel{DB: db},
 	}
 
 	srv := &http.Server{
@@ -56,5 +60,4 @@ func main() {
 	infoLog.Printf("Starting server on %s\n", *addr)
 	err = srv.ListenAndServe()
 	errorLog.Fatal(err)
-
 }
