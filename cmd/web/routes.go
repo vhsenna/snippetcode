@@ -14,5 +14,5 @@ func (app *application) routes() http.Handler {
 	r.HandleFunc("/snippet/view", app.snippetView)
 	r.HandleFunc("/snippet/create", app.snippetCreate)
 
-	return app.logRequest(secureHeaders(r))
+	return app.recoverPanic(app.logRequest(secureHeaders(r)))
 }
