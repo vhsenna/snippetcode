@@ -11,6 +11,7 @@ import (
 	"github.com/vhsenna/snippetcode/internal/models"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 )
 
 type application struct {
@@ -32,13 +33,20 @@ func openDB(dsn string) (*sql.DB, error) {
 }
 
 func main() {
-	addr := flag.String("addr", ":8080", "HTTP network address")
-	dsn := flag.String("dsn", "web:"+os.Getenv("MYSQL_PASSWORD")+"@/snippetcode?parseTime=true", "MySQL data source name")
-
-	flag.Parse()
-
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+
+	err := godotenv.Load(".env")
+	if err != nil {
+		errorLog.Fatal(err)
+	}
+
+	MYSQL_PASSWORD := os.Getenv("MYSQL_PASSWORD")
+
+	addr := flag.String("addr", ":8080", "HTTP network address")
+	dsn := flag.String("dsn", "web:"+MYSQL_PASSWORD+"@/snippetcode?parseTime=true", "MySQL data source name")
+
+	flag.Parse()
 
 	db, err := openDB(*dsn)
 	if err != nil {
