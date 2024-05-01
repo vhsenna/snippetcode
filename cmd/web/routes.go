@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+
 	"github.com/go-chi/chi"
 
 	"github.com/justinas/alice"
@@ -23,8 +24,12 @@ func (app *application) routes() http.Handler {
 	r.Method(http.MethodGet, "/snippet/view/{id}", dynamic.ThenFunc(app.snippetView))
 	r.Method(http.MethodGet, "/snippet/create", dynamic.ThenFunc(app.snippetCreate))
 	r.Method(http.MethodPost, "/snippet/create", dynamic.ThenFunc(app.snippetCreatePost))
+	r.Method(http.MethodGet, "/user/signup", dynamic.ThenFunc(app.userSignup))
+	r.Method(http.MethodPost, "/user/signup", dynamic.ThenFunc(app.userSignupPost))
+	r.Method(http.MethodGet, "/user/login", dynamic.ThenFunc(app.userLogin))
+	r.Method(http.MethodPost, "/user/login", dynamic.ThenFunc(app.userLoginPost))
+	r.Method(http.MethodPost, "/user/logout", dynamic.ThenFunc(app.userLogoutPost))
 
 	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
-
 	return standard.Then(r)
 }
