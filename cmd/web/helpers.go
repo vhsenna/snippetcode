@@ -50,7 +50,7 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 	_ = r
 	return &templateData{
 		CurrentYear: time.Now().Year(),
-		Flash: app.sessionManager.PopString(r.Context(), "flash"),
+		Flash:       app.sessionManager.PopString(r.Context(), "flash"),
 	}
 }
 
@@ -72,4 +72,8 @@ func (app *application) decodePostForm(r *http.Request, targetDestination any) e
 	}
 
 	return nil
+}
+
+func (app *application) isAuthenticated(r *http.Request) bool {
+	return app.sessionManager.Exists(r.Context(), "authenticatedUserID")
 }
