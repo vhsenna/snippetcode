@@ -18,7 +18,7 @@ func (app *application) routes() http.Handler {
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
 	r.Handle("/static/*", http.StripPrefix("/static", fileServer))
 
-	dynamic := alice.New(app.sessionManager.LoadAndSave)
+	dynamic := alice.New(app.sessionManager.LoadAndSave, noSurf)
 
 	r.Method(http.MethodGet, "/", dynamic.ThenFunc(app.home))
 	r.Method(http.MethodGet, "/snippet/view/{id}", dynamic.ThenFunc(app.snippetView))
@@ -27,7 +27,7 @@ func (app *application) routes() http.Handler {
 	r.Method(http.MethodGet, "/user/login", dynamic.ThenFunc(app.userLogin))
 	r.Method(http.MethodPost, "/user/login", dynamic.ThenFunc(app.userLoginPost))
 
-	protected := dynamic .Append (app .requireAuthentication )
+	protected := dynamic.Append(app.requireAuthentication)
 
 	r.Method(http.MethodGet, "/snippet/create", protected.ThenFunc(app.snippetCreate))
 	r.Method(http.MethodPost, "/snippet/create", protected.ThenFunc(app.snippetCreatePost))
