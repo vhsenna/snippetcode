@@ -35,6 +35,8 @@ func (app *application) routes() http.Handler {
 	r.Method(http.MethodGet, "/snippet/create", protected.ThenFunc(app.snippetCreate))
 	r.Method(http.MethodPost, "/snippet/create", protected.ThenFunc(app.snippetCreatePost))
 	r.Method(http.MethodGet, "/account/view", protected.ThenFunc(app.accountView))
+	r.Method(http.MethodGet, "/account/password/update", protected.ThenFunc(app.accountPasswordUpdate))
+	r.Method(http.MethodPost, "/account/password/update", protected.ThenFunc(app.accountPasswordUpdatePost))
 	r.Method(http.MethodPost, "/user/logout", protected.ThenFunc(app.userLogoutPost))
 
 	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
