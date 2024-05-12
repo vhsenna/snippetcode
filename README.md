@@ -2,6 +2,8 @@
 
 Snippetcode is a web application built with Golang that facilitates the sharing of code snippets or text, providing users with a platform similar to Pastebin or GitHub's Gists for efficient collaboration and showcasing of work.
 
+![Peek 12-05-2024 13-27](https://github.com/vhsenna/snippetcode/assets/34524951/e3206fcb-14b7-4dcb-9460-80e524d8f727)
+
 ## Features
 - **Paste and Share**: Quickly share code snippets or text via unique URLs.
 - **Easy Sharing**: Share snippets through unique URLs.
