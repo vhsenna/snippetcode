@@ -300,7 +300,7 @@ func (app *application) accountPasswordUpdatePost(w http.ResponseWriter, r *http
 			data.Form = form
 
 			app.render(w, http.StatusUnprocessableEntity, "password.html", data)
-		} else if err != nil {
+		} else {
 			app.serverError(w, err)
 		}
 		return
