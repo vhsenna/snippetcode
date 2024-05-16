@@ -37,7 +37,16 @@ mysql-> exit
 This will create a new user named `'newuser'` with the password `'user_password'` and grant them all privileges to access the `'snippetcode'` database.
 
 ## Running the Project
-Before running the project, you need to set environment variables for the MySQL username and password:
+
+1. Clone the repository.
+
+```bash
+git clone https://github.com/vhsenna/snippetcode.git
+cd snippetcode
+```
+
+2. Set MySQL environment variables.
+
 
 ```bash
 # For Linux/MacOS:
@@ -49,11 +58,19 @@ $env:MySQLUser="username"
 $env:MySQLPass="password"
 ```
 
-Finally, you can run the project using the following command:
+3. Initialize Go modules.
+
+```bash
+go mod tidy
+```
+
+4. Run the project.
 
 ```bash
 go run ./cmd/web
 ```
+
+5. Open your browser and navigate to `http://localhost:8080` to use the application.
 
 ## Testing
 
