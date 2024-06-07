@@ -84,7 +84,7 @@ go test ./...
 ## Upcoming Features
 
 - [ ] **Syntax Highlighting**: Enhance snippet readability by displaying code with syntax highlighting.
-- [ ] **Share Functionality**: Implement a "Share" feature to generate unique URLs for snippet sharing.
+- [ ] **Share Button**: Implement a "Share" feature to generate unique URLs for snippet sharing.
 - [ ] **Pagination**: Navigate through multiple pages for improved browsing.
 - [ ] **Username Instead of Name**: Replace "name" with "username" for consistency and clarity.
 - [ ] **Author Display**: Show the author of each snippet to provide attribution and context.
